@@ -8,19 +8,7 @@ url="https://api.github.com/repos/abeloin/Jackett/releases"
 tag=$(curl -sX GET "$url" | awk '/tag_name/{print $4;exit}' FS='[""]')
 ARCH=`uname -m`
 
-echo "***** installing cloudproxdy bin from @abeloin, version $tag for arch $ARCH *****"
-if [ "$ARCH" == "x86_64" ]; then
-   BINARY="https://github.com/abeloin/Jackett/releases/download/$tag/Jackett.Binaries.LinuxAMDx64.tar.gz"
-elif [ "$ARCH" == "aarch64" ]; then
-   BINARY="https://github.com/abeloin/Jackett/releases/download/$tag/Jackett.Binaries.LinuxARM64.tar.gz"
-elif [ "$ARCH" == "armv7l" ]; then
-   BINARY="https://github.com/abeloin/Jackett/releases/download/$tag/Jackett.Binaries.LinuxARM32.tar.gz"
-else
-   echo "unknown arch"
-   exit
-fi
-
-curl -o /tmp/jackett.tar.gz -L "$BINARY"
+curl -o /tmp/jackett.tar.gz -L "https://github.com/abeloin/Jackett/releases/download/$tag/Jackett.Binaries.LinuxAMDx64.tar.gz"
 tar -xzf /tmp/jackett.tar.gz -C /app/
 #mv /tmp/Jackett/* /app/Jackett/
 
